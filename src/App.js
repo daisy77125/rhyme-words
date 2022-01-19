@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import Words from "./components/Words";
+import InputWord from "./components/InputWord";
 
 function App() {
+  const [words, setWords] = useState([]);
+
+  const onNewWordEntered = async (text) => {
+    const res = await fetch(`https://api.datamuse.com/words?rel_rhy=${text}`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+
+    setWords(data.map((item) => item.word));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="container">
+        <InputWord onNewWordEntered={onNewWordEntered} />
+
+        {words.length > 0 ? <Words words={words} /> : null}
+      </div>
+    </>
   );
 }
 
