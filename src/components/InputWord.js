@@ -18,19 +18,18 @@ const InputWord = ({ onNewWordEntered }) => {
 
   return (
     <form className="enter-word-form" onSubmit={onSubmit}>
-      <div className="form-control">
-        <input
-          type="text"
-          placeholder="Enter your word"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-      </div>
+      <input
+        className="form-control mb-3"
+        type="text"
+        placeholder="Enter your word"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
 
       <input
         type="submit"
         value="Find words that rhyme with your input"
-        className="btn btn-block"
+        className="btn bg-dark text-light"
       />
     </form>
   );
